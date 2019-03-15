@@ -333,18 +333,17 @@ class fun:
         """Joke accent translator. Format is -[mode] [phrase]. Currently supported modes are cat and pirate."""
         mode = ctx.invoked_with
         string = args
-        converted = tools.convert_phrase_accent(string, mode)
-        bot_message = "{0}: {1}".format(ctx.message.author.mention , tools.Converter(phrase, mode)) #this makes it so that it almost mirrors the "copy cat" random func
+        bot_message = "{0}: {1}".format(ctx.message.author.mention , tools.Converter(string, mode)) #this makes it so that it almost mirrors the "copy cat" random func
         embed = discord.Embed(color=ctx.message.author.color)
         title = "Placeholder. You shouldn't see this."
         if mode == "cat":
             title = "Nyaa~"
         elif mode == 'pirate':
             title = "Shiver me timbers!"
-        embed.add_field(name="Hehe...", value=bot_message, inline=False)
-        embed.set_thumbnail(url=ctx.message.author.user.avatar_url) #not sure if I (Kyon) set this correctly
+        embed.add_field(name=title, value=bot_message, inline=False)
+        embed.set_thumbnail(url=ctx.message.author.avatar_url)
+        await self.bot.delete_message(ctx.message)
         return await self.bot.send_message(ctx.message.channel, embed=embed)
-        return await bot.delete_message(ctx.message)
 
     @commands.group(pass_context=True)
     async def kyon(self, ctx):
